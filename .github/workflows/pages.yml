@@ -1,0 +1,61 @@
+# Publication sur GitHub Pages à chaque envoi vers la branche main (ou à la main depuis l'onglet Actions).
+#
+# Réglage à faire UNE fois dans le dépôt : Settings → Pages → Source « GitHub Actions ».
+# Les tests de navigateur (tests/e2e/) ne tournent pas ici : ils tournent dans l'espace de travail de Claude.
+#
+# Versions des actions (vérifiées dans leur documentation officielle) :
+#   actions/checkout@v7, actions/setup-node@v7, actions/configure-pages@v5,
+#   actions/upload-pages-artifact@v4, actions/deploy-pages@v4.
+
+name: Publier sur GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Une seule publication à la fois ; une publication en cours n'est pas interrompue.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          package-manager-cache: false # aucune dépendance à installer
+
+      - name: Tests de logique
+        run: node --test
+
+      - name: Contrôle des règles du projet
+        run: node tools/check.mjs
+
+      - name: Export du site
+        run: node tools/export.mjs --out site
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
