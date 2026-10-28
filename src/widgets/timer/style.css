@@ -1,0 +1,239 @@
+/* Widget Minuteur. Couleurs : variables du thème uniquement.
+   Le temps suit la taille du widget grâce aux unités de conteneur (cqw, cqh) : il ne dépasse ni la
+   largeur, ni la hauteur disponibles. Le contenu défile si le widget est très petit. */
+
+.timer {
+  container-type: size;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.timer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* Centrage « sûr » : centré s'il reste de la place, sinon on défile depuis le haut sans rien couper. */
+.timer__inner > :first-child {
+  margin-top: auto;
+}
+
+.timer__inner > :last-child {
+  margin-bottom: auto;
+}
+
+.timer__label {
+  flex: none;
+  margin: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timer__time {
+  flex: none;
+  margin: 0;
+  color: var(--text);
+  font-family: var(--font-mono);
+  /* Largeur : tient dans 100 % du conteneur ; hauteur : un quart au plus. */
+  font-size: clamp(1.75rem, min(calc(100cqw / var(--timer-em-width, 3.15)), 22cqh), 8rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.timer__inner--paused .timer__time {
+  color: var(--muted);
+}
+
+.timer__progress {
+  display: block;
+  flex: none;
+  width: 100%;
+  height: 6px;
+  border: 0;
+  border-radius: 3px;
+  background: var(--surface-2);
+  appearance: none;
+  overflow: hidden;
+}
+
+.timer__progress::-webkit-progress-bar {
+  background: var(--surface-2);
+}
+
+.timer__progress::-webkit-progress-value {
+  background: var(--accent-2);
+}
+
+.timer__progress::-moz-progress-bar {
+  background: var(--accent-2);
+}
+
+.timer__done {
+  flex: none;
+  margin: 0;
+  color: var(--accent);
+  font-weight: 600;
+  text-align: center;
+}
+
+.timer__presets {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px;
+}
+
+.timer__preset {
+  flex: 1 1 auto;
+  min-height: 32px;
+  padding: 0 2px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.timer__preset:hover {
+  background: var(--surface-2);
+}
+
+.timer__preset[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.timer__actions {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.timer__custom {
+  flex: 1 1 64px;
+  min-width: 0;
+}
+
+.timer__custom-input {
+  width: 100%;
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.timer__custom-input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
+.timer__primary,
+.timer__secondary {
+  flex: 0 1 auto;
+}
+
+.timer__error {
+  flex: none;
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+/* Au repos la barre est vide : on la cache pour laisser la place aux réglages. */
+.timer__inner--idle .timer__progress {
+  display: none;
+}
+
+/* Fin : le temps clignote doucement, sauf si l'utilisateur préfère moins de mouvement. */
+.timer__time--celebrate {
+  color: var(--accent);
+  animation: timer-pulse 1s ease-in-out 6;
+}
+
+@keyframes timer-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timer__time--celebrate {
+    animation: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .timer__preset {
+    min-height: 44px;
+  }
+}
+
+/* Panneau de réglages. */
+.timer-settings__group {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.timer-settings__preset {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.timer-settings__preset .field {
+  flex: 1;
+}
+
+.timer-settings__permission {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  padding: 10px 12px;
+  border-left: 3px solid var(--accent-2);
+  border-radius: 4px;
+  background: var(--surface-2);
+}
+
+.timer-settings__permission p {
+  margin: 0;
+}
+
+.timer-settings__status {
+  font-size: 0.875rem;
+}

@@ -1,0 +1,130 @@
+/* Widget Heure. Couleurs : variables du thème uniquement.
+   L'heure suit la taille du widget grâce aux unités de conteneur (cqw, cqh) : elle ne dépasse
+   ni la largeur, ni la hauteur disponibles. */
+
+.clock {
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.clock__greeting,
+.clock__date {
+  flex: none;
+  margin: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clock__greeting {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.clock__time {
+  display: block;
+  flex: none;
+  /* Largeur : tient dans 100 % du conteneur ; hauteur : ce qui reste après les autres lignes. */
+  font-size: min(
+    calc(100cqw / var(--clock-em-width, 4)),
+    max(1.25rem, calc((100cqh - var(--clock-lines, 0) * 1.9rem) * 0.9))
+  );
+  font-family: var(--font-mono);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.clock__small {
+  color: var(--muted);
+  font-size: 0.5em;
+}
+
+.clock__zones {
+  display: grid;
+  flex: 0 1 auto;
+  gap: 4px;
+  min-height: 0;
+  margin: 8px 0 0;
+  overflow-y: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.clock__zone {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.clock__zone-label {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clock__zone-time {
+  display: inline-flex;
+  flex: none;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.clock__shift {
+  color: var(--accent-2);
+  font-size: 0.75rem;
+}
+
+/* Panneau de réglages : liste des fuseaux secondaires. */
+
+.clock-zones {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.clock-zones__list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.clock-zones__item,
+.clock-zones__add {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 8px;
+}
+
+.clock-zones__item > .btn,
+.clock-zones__add > .btn {
+  margin-top: 26px;
+}
