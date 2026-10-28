@@ -1,0 +1,14 @@
+{
+  "name": "dashboard-homepage",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "test:coverage": "node tools/coverage.mjs",
+    "check": "node tools/check.mjs",
+    "export": "node tools/export.mjs",
+    "serve": "node tools/serve.mjs site",
+    "e2e": "node tests/e2e/all.mjs"
+  },
+  "version": "0.1.0"
+}

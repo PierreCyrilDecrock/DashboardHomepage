@@ -1,0 +1,85 @@
+/*
+  Thème de Dashboard Homepage.
+  Concept : un établi calme (neutres chauds très légers) où les widgets sont
+  les objets ; un accent chaud pour l'action, une teinte sarcelle pour
+  l'information, utilisés avec parcimonie.
+
+  Les variables sont d'abord définies sur :root (clair), puis redéfinies :
+  - par préférence du système, sauf si data-theme="light" force le clair ;
+  - par data-theme="dark", qui force le sombre.
+  Aucun composant n'écrit de couleur en dur : tout passe par ces variables.
+
+  --tile-1 à --tile-8 : fonds de tuile de huit teintes (widget Raccourcis), --tile-text : la
+  lettre posée dessus. Contraste d'au moins 4,5:1 entre fond et lettre, vérifié par
+  tools/theme.test.js.
+*/
+:root {
+  --bg: #f5f3f0;
+  --surface: #fffdfb;
+  --surface-2: #ebe7e2;
+  --border: #d8d2cb;
+  --text: #25201b;
+  --muted: #665e56;
+  --accent: #b73c09;
+  --accent-contrast: #ffffff;
+  --accent-2: #0e7470;
+  --danger: #b3261e;
+  --tile-1: #ecbfac;
+  --tile-2: #ecd9ac;
+  --tile-3: #c7ecac;
+  --tile-4: #acecd7;
+  --tile-5: #ace1ec;
+  --tile-6: #acc1ec;
+  --tile-7: #c7acec;
+  --tile-8: #ecaccc;
+  --tile-text: #25201b;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161412;
+    --surface: #1f1c19;
+    --surface-2: #2a2622;
+    --border: #3b3630;
+    --text: #f0ece6;
+    --muted: #a69e94;
+    --accent: #ff9158;
+    --accent-contrast: #1a110b;
+    --accent-2: #4fd0c4;
+    --danger: #ff8d82;
+    --tile-1: #6d402c;
+    --tile-2: #6d592c;
+    --tile-3: #476d2c;
+    --tile-4: #2c6d57;
+    --tile-5: #2c626d;
+    --tile-6: #2c426d;
+    --tile-7: #472c6d;
+    --tile-8: #6d2c4d;
+    --tile-text: #f5f1ec;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #161412;
+  --surface: #1f1c19;
+  --surface-2: #2a2622;
+  --border: #3b3630;
+  --text: #f0ece6;
+  --muted: #a69e94;
+  --accent: #ff9158;
+  --accent-contrast: #1a110b;
+  --accent-2: #4fd0c4;
+  --danger: #ff8d82;
+  --tile-1: #6d402c;
+  --tile-2: #6d592c;
+  --tile-3: #476d2c;
+  --tile-4: #2c6d57;
+  --tile-5: #2c626d;
+  --tile-6: #2c426d;
+  --tile-7: #472c6d;
+  --tile-8: #6d2c4d;
+  --tile-text: #f5f1ec;
+  color-scheme: dark;
+}

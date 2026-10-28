@@ -1,0 +1,55 @@
+/* Mise en page du widget de démonstration (couleurs : variables du thème uniquement). */
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.demo__label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  overflow-wrap: anywhere;
+}
+
+.demo__count {
+  margin: 0;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.demo__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.demo__button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.demo__button:hover {
+  border-color: var(--accent);
+}
+
+.demo__button--danger {
+  color: var(--danger);
+}
+
+.demo__renders {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}

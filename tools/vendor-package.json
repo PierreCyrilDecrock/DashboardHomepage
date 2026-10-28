@@ -1,0 +1,16 @@
+{
+  "name": "dashboard-homepage-vendor",
+  "private": true,
+  "description": "Versions exactes des bibliothèques copiées dans vendor/ par tools/vendor.mjs. Ne sert qu'à ce script : jamais installé dans le projet.",
+  "dependencies": {
+    "preact": "10.29.8",
+    "htm": "3.1.1",
+    "zod": "4.6.6",
+    "gridstack": "14.0.0",
+    "sortablejs": "1.15.7",
+    "lucide-static": "1.55.0",
+    "@fontsource/instrument-sans": "5.3.0",
+    "@fontsource/dm-mono": "5.3.0",
+    "esbuild": "0.28.2"
+  }
+}
